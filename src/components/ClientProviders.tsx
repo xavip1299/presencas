@@ -1,7 +1,7 @@
 'use client';
 
 import { Toaster } from 'sonner';
-import SupabaseListener from './SupabaseListener';
+import SupabaseListener from '@/components/SupabaseListener';
 
 export default function ClientProviders() {
   return (
