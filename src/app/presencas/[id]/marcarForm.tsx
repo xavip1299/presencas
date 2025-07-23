@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import { toast } from 'sonner';
+import Spinner from '@/components/ui/Spinner';
 
 type Caloiro = { id: string; nome: string; numero_caloiro: string };
 type Props = { atividadeId: string; caloiros: Caloiro[] };
@@ -9,16 +11,14 @@ type Props = { atividadeId: string; caloiros: Caloiro[] };
 export default function MarcarPresencasForm({ atividadeId, caloiros }: Props) {
   const [selecionados, setSelecionados] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(false);
-  const [msg, setMsg] = useState('');
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMsg('');
     setLoading(true);
 
     const ids = Object.keys(selecionados).filter(id => selecionados[id]);
     if (!ids.length) {
-      setMsg('Nada selecionado.');
+      toast.warning('Nada selecionado');
       setLoading(false);
       return;
     }
@@ -30,10 +30,10 @@ export default function MarcarPresencasForm({ atividadeId, caloiros }: Props) {
 
     const { error } = await supabase.from('presencas').insert(rows);
     if (error) {
-      setMsg(error.message);
+      toast.error(error.message);
     } else {
-      setMsg('Presenças marcadas!');
-      setTimeout(() => (window.location.href = '/presencas'), 1000);
+      toast.success('Presenças marcadas!');
+      setTimeout(() => (window.location.href = '/presencas'), 800);
     }
     setLoading(false);
   }
@@ -55,11 +55,10 @@ export default function MarcarPresencasForm({ atividadeId, caloiros }: Props) {
         ))}
       </div>
 
-      <button disabled={loading} className="border px-3 py-1">
+      <button disabled={loading} className="border px-3 py-1 flex items-center gap-2">
+        {loading && <Spinner size={16} />}
         {loading ? 'A guardar...' : 'Guardar presenças'}
       </button>
-
-      {msg && <p className="text-sm mt-2">{msg}</p>}
     </form>
   );
 }

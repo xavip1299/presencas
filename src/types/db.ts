@@ -30,5 +30,5 @@ export type LogEntry = {
   acao: 'INSERT' | 'UPDATE' | 'DELETE';
   row_id: string | null;
   created_at: string;
-  extra: any;
+  extra: Record<string, unknown>; // ← em vez de any
 };

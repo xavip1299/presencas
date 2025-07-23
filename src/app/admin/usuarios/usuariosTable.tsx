@@ -3,23 +3,24 @@
 import { useState } from 'react';
 import type { Usuario } from '@/types/db';
 import { supabase } from '@/lib/supabaseClient';
-
+import { toast } from 'sonner';
+import Spinner from '@/components/ui/Spinner';
 
 type Props = { usuarios: Usuario[] };
 
 export default function UsuariosTable({ usuarios }: Props) {
   const [rows, setRows] = useState<Usuario[]>(usuarios);
-  const [msg, setMsg] = useState('');
+  const [loadingId, setLoadingId] = useState<string | null>(null);
 
   async function mudarRole(id: string, role: 'admin' | 'doutor') {
-    setMsg('');
+    setLoadingId(id);
     const { error } = await supabase.from('usuarios').update({ role }).eq('id', id);
-    if (error) {
-      setMsg(error.message);
-    } else {
+    if (error) toast.error(error.message);
+    else {
       setRows(r => r.map(u => (u.id === id ? { ...u, role } : u)));
-      setMsg('Role atualizado.');
+      toast.success('Role atualizado');
     }
+    setLoadingId(null);
   }
 
   return (
@@ -44,17 +45,21 @@ export default function UsuariosTable({ usuarios }: Props) {
               <td className="border p-2 space-x-2">
                 {u.role !== 'admin' && (
                   <button
-                    className="border px-2 py-1"
+                    className="border px-2 py-1 inline-flex items-center gap-1"
                     onClick={() => mudarRole(u.id, 'admin')}
+                    disabled={loadingId === u.id}
                   >
+                    {loadingId === u.id && <Spinner size={12} />}
                     Tornar admin
                   </button>
                 )}
                 {u.role !== 'doutor' && (
                   <button
-                    className="border px-2 py-1"
+                    className="border px-2 py-1 inline-flex items-center gap-1"
                     onClick={() => mudarRole(u.id, 'doutor')}
+                    disabled={loadingId === u.id}
                   >
+                    {loadingId === u.id && <Spinner size={12} />}
                     Tornar doutor
                   </button>
                 )}
@@ -63,7 +68,6 @@ export default function UsuariosTable({ usuarios }: Props) {
           ))}
         </tbody>
       </table>
-      {msg && <p className="text-sm mt-2">{msg}</p>}
     </div>
   );
 }
