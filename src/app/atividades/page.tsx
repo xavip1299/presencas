@@ -1,15 +1,18 @@
 import { requireSession } from '@/lib/requireSession';
 import NovaAtividadeForm from './novaAtividadeForm';
+import type { Atividade } from '@/types/db';
 
 export default async function AtividadesPage() {
   const { supabase } = await requireSession();
 
-  const { data: atividades, error } = await supabase
+  const { data, error } = await supabase
     .from('atividades')
     .select('*')
     .order('data', { ascending: false });
 
   if (error) throw error;
+
+  const atividades: Atividade[] = data ?? [];
 
   return (
     <main className="p-6">
@@ -27,12 +30,12 @@ export default async function AtividadesPage() {
           </tr>
         </thead>
         <tbody>
-          {atividades?.map((a: any) => (
+          {atividades.map((a) => (
             <tr key={a.id}>
               <td className="border p-2">{a.data}</td>
               <td className="border p-2">{a.titulo}</td>
-              <td className="border p-2">{a.tipo || '—'}</td>
-              <td className="border p-2">{a.observacoes || '—'}</td>
+              <td className="border p-2">{a.tipo ?? '—'}</td>
+              <td className="border p-2">{a.observacoes ?? '—'}</td>
             </tr>
           ))}
         </tbody>

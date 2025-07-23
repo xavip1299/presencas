@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { requireSession } from '@/lib/requireSession';
 import LogoutButton from './LogoutButton';
 
@@ -10,11 +11,12 @@ export default async function DashboardPage() {
         <h1 className="text-2xl">Dashboard</h1>
         <LogoutButton />
       </div>
+
       <ul className="list-disc pl-6 space-y-2">
-        <li><a href="/caloiros">Caloiros</a></li>
-        <li><a href="/atividades">Atividades</a></li>
-        <li><a href="/presencas">Presenças</a></li>
-        <li><a href="/relatorios">Relatórios</a></li>
+        <li><Link href="/caloiros">Caloiros</Link></li>
+        <li><Link href="/atividades">Atividades</Link></li>
+        <li><Link href="/presencas">Presenças</Link></li>
+        <li><Link href="/relatorios">Relatórios</Link></li>
       </ul>
     </main>
   );

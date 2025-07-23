@@ -1,15 +1,18 @@
 import { requireSession } from '@/lib/requireSession';
 import NovoCaloiroForm from './novoCaloiroForm';
+import type { Caloiro } from '@/types/db';
 
 export default async function CaloirosPage() {
   const { supabase } = await requireSession();
 
-  const { data: caloiros, error } = await supabase
+  const { data, error } = await supabase
     .from('caloiros')
     .select('*')
     .order('nome');
 
   if (error) throw error;
+
+  const caloiros: Caloiro[] = data ?? [];
 
   return (
     <main className="p-6">
@@ -26,7 +29,7 @@ export default async function CaloirosPage() {
           </tr>
         </thead>
         <tbody>
-          {caloiros?.map((c: any) => (
+          {caloiros.map((c) => (
             <tr key={c.id}>
               <td className="border p-2">{c.numero_caloiro}</td>
               <td className="border p-2">{c.nome}</td>
