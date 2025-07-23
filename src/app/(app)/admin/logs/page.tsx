@@ -1,5 +1,6 @@
 import { requireSession } from '@/lib/requireSession';
-import type { LogEntry, Usuario } from '@/types/db';
+import type { LogEntry } from '@/types/db';
+
 
 export default async function LogsPage() {
   const { supabase, session } = await requireSession();

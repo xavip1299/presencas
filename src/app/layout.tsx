@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
-import SupabaseListener from '@/components/SupabaseListener';
-import { Toaster } from 'sonner';
-import './globals.css'; // se tiveres CSS global
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Praxe',
@@ -11,11 +9,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt">
-      <body>
-        <SupabaseListener />
-        <Toaster richColors position="top-center" />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
