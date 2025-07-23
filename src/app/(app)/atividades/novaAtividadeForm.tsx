@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import Spinner from '@/components/ui/Spinner';
+import { Button } from '@/components/ui/Button';
 
 const schema = z.object({
   titulo: z.string().min(1, 'Obrigatório'),
@@ -50,7 +51,7 @@ export default function NovaAtividadeForm() {
 
       <textarea className="border p-2" placeholder="Observações (opcional)" rows={3} {...register('observacoes')} />
 
-      <button disabled={disabled} className="border px-3 py-1 mt-2 self-start flex items-center gap-2">
+      <button disabled={disabled} className="mt-2 self-start">
         {disabled && <Spinner size={16} />}
         {disabled ? 'A guardar...' : 'Guardar'}
       </button>

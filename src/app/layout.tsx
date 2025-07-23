@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Praxe',
+  title: 'Dura Praxis',
   description: 'Gestão de presenças',
 };
 

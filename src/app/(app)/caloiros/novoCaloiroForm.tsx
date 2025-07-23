@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import Spinner from '@/components/ui/Spinner';
+import { Button } from '@/components/ui/Button';
 
 const schema = z.object({
   numero_caloiro: z.string().min(1, 'Obrigatório'),
@@ -33,6 +34,7 @@ export default function NovoCaloiroForm() {
     }
     setSubmitting(false);
   }
+  
 
   const disabled = isSubmitting || submitting;
 
@@ -52,7 +54,7 @@ export default function NovoCaloiroForm() {
       <input className={`border p-2 ${errors.data_nascimento && 'border-red-500'}`} type="date" {...register('data_nascimento')} />
       {errors.data_nascimento && <span className="text-red-600 text-sm">{errors.data_nascimento.message}</span>}
 
-      <button disabled={disabled} className="border px-3 py-1 mt-2 self-start flex items-center gap-2">
+      <button disabled={disabled} className="mt-2 self-start">
         {disabled && <Spinner size={16} />}
         {disabled ? 'A guardar...' : 'Guardar'}
       </button>

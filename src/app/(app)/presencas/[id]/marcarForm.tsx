@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from 'sonner';
 import Spinner from '@/components/ui/Spinner';
+import { Button } from '@/components/ui/Button';
 
 type Caloiro = { id: string; nome: string; numero_caloiro: string };
 type Props = { atividadeId: string; caloiros: Caloiro[] };
@@ -55,10 +56,10 @@ export default function MarcarPresencasForm({ atividadeId, caloiros }: Props) {
         ))}
       </div>
 
-      <button disabled={loading} className="border px-3 py-1 flex items-center gap-2">
+      <Button disabled={loading} className="mt-2 self-start">
         {loading && <Spinner size={16} />}
         {loading ? 'A guardar...' : 'Guardar presenças'}
-      </button>
+      </Button>
     </form>
   );
 }
