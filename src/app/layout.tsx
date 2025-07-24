@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Dura Praxis',
-  description: 'Gestão de presenças',
+  title: 'Praxis',
+  description: 'Gestão de Praxe',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

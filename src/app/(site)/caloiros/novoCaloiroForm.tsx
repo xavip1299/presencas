@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { supabase } from '@/lib/supabaseClient';
 import { toast } from 'sonner';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const schema = z.object({
@@ -22,9 +22,8 @@ export default function NovoCaloiroForm() {
 
   async function onSubmit(data: FormData) {
     const { error } = await supabase.from('caloiros').insert(data);
-    if (error) {
-      toast.error(error.message);
-    } else {
+    if (error) toast.error(error.message);
+    else {
       toast.success('Caloiro criado!');
       reset();
       window.location.reload();
@@ -37,8 +36,7 @@ export default function NovoCaloiroForm() {
       <Input label="Nome" error={errors.nome?.message} {...register('nome')} />
       <Input label="Curso" error={errors.curso?.message} {...register('curso')} />
       <Input type="date" label="Data de Nascimento" error={errors.data_nascimento?.message} {...register('data_nascimento')} />
-
-      <Button loading={isSubmitting} type="submit">Guardar</Button>
+      <Button loading={isSubmitting} type="submit" variant="gold">Guardar</Button>
     </form>
   );
 }

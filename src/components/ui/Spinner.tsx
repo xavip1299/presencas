@@ -1,5 +1,4 @@
 'use client';
-
 export default function Spinner({ size = 18 }: { size?: number }) {
   return (
     <div

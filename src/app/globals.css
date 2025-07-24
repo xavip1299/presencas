@@ -1,27 +1,23 @@
-:root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  /* ... (variáveis geradas) ... */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=UnifrakturCook:wght@700&display=swap');
+
+html, body {
+  @apply bg-black text-offwhite font-body;
 }
 
-.dark {
-  --background: 0 0% 0%;       /* preto */
-  --foreground: 0 0% 100%;
-  --card: 240 5.9% 10%;
-  --card-foreground: 0 0% 100%;
-  --popover: 240 5.9% 10%;
-  --popover-foreground: 0 0% 100%;
-  --primary: 0 0% 0%;
-  --primary-foreground: 0 0% 100%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: 0 62.8% 45.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 5% 64.9%;
+/* Links */
+a { @apply text-gold hover:opacity-80 transition; }
+
+/* Pequena textura opcional */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url('/noise.png'); /* opcional: cria um png 4x4 */
+  opacity:.08;
+  pointer-events:none;
 }

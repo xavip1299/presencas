@@ -7,9 +7,9 @@ export function Sheet({ open, onOpenChange, children }: { open: boolean; onOpenC
 export function SheetTrigger({ asChild, children }: { asChild?: boolean; children: ReactNode }) {
   return <>{children}</>;
 }
-export function SheetContent({ side, className, children }: { side?: string; className?: string; children: ReactNode }) {
+export function SheetContent({ className, children }: { className?: string; children: ReactNode }) {
   return (
-    <div className={`fixed top-0 bottom-0 w-64 bg-black border-r border-gray-800 p-4 z-50 ${className || ''}`}>
+    <div className={`fixed top-0 bottom-0 w-60 bg-black border-r border-gray-800 p-4 z-50 ${className||''}`}>
       {children}
     </div>
   );
